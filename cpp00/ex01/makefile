@@ -1,0 +1,21 @@
+NAME = a.out
+
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98
+
+SRC = phonebook.cpp\
+	  contact.cpp
+OBJ = $(SRC:.cpp=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
