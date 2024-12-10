@@ -1,6 +1,6 @@
 NAME = a.out
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC = main.cpp  zombieHorde.cpp Zombie.cpp
