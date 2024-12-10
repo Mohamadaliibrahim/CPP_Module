@@ -33,17 +33,39 @@ void Harl::complain(std::string level)
         "WARNING", 
         "ERROR"
     };
+    int startIndex = -1;
     for (int i = 0; i < 4; i++)
     {
         if (level == levels[i])
         {
-            while (i < 4)
-            {
-                (this->*actions[i])();
-                i++;
-            }
-            return ;
+            startIndex = i;
+            break;
         }
     }
-    std::cout << "Invalid level: " << level << std::endl;
+    if (startIndex == -1)
+    {
+        std::cout << "Invalid level: " << level << std::endl;
+        return;
+    }
+    switch (startIndex)
+    {
+        case 0:
+            (this->*actions[0])();
+            (this->*actions[1])();
+            (this->*actions[2])();
+            (this->*actions[3])();
+            break;
+        case 1:
+            (this->*actions[1])();
+            (this->*actions[2])();
+            (this->*actions[3])();
+            break;
+        case 2:
+            (this->*actions[2])();
+            (this->*actions[3])();
+            break;
+        case 3:
+            (this->*actions[3])();
+            break;
+    }
 }
