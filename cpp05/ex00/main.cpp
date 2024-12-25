@@ -1,87 +1,58 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mohamibr <mohamibr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:02:23 by cgodecke          #+#    #+#             */
-/*   Updated: 2024/12/23 22:51:05 by mohamibr         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Bureaucrat.hpp"
 
-int main(void)
+int main()
 {
-	std::cout << "\033[33m" << std::endl << "Test ex01" << "\033[0m" << std::endl;
+    try
+    {
+        Bureaucrat bob("Bob", 2);
+        std::cout << bob << std::endl;
 
-	std::cout << "\033[33m" << std::endl << "Test too high and too low creation" << "\033[0m" << std::endl;
-	try
-	{
-		Bureaucrat Sleeper1("Bernd", 1500);
-	}
-	catch(const std::exception &e)
-	{
-		std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
+        bob.incrementGrade();
+        std::cout << "After increment: " << bob << std::endl;
 
-	try
-	{
-		Bureaucrat Sleeper2("Olaf", -10);
-	}
-	catch(const std::exception &e)
-	{
-		std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
+        bob.incrementGrade(); // This should throw GradeTooHighException
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception caught: " << e.what() << std::endl;
+    }
 
-	std::cout << "\033[33m" << std::endl << "Test increasing" << "\033[0m" << std::endl;
-	Bureaucrat bob("Bob", 2);
-	std::cout << bob;
-	try
-	{
-		bob.incrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << bob;
-	
-	try
-	{
-	bob.incrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-	std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << bob;
+    std::cout << "-----------------------------" << std::endl;
 
+    try
+    {
+        Bureaucrat alice("Alice", 149);
+        std::cout << alice << std::endl;
 
+        alice.decrementGrade();
+        std::cout << "After decrement: " << alice << std::endl;
 
-	std::cout << "\033[33m" << std::endl << "Test decreasing" << "\033[0m" << std::endl;
-	Bureaucrat tim("Tim", 149);
-	std::cout << tim;
-	try
-	{
-		tim.decrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << tim;
-	
-	try
-	{
-	tim.decrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-	std::cerr << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << tim;
-	
-	return (0);
+        alice.decrementGrade(); // This should throw GradeTooLowException
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception caught: " << e.what() << std::endl;
+    }
+
+    std::cout << "-----------------------------" << std::endl;
+
+    try
+    {
+        Bureaucrat invalidHigh("InvalidHigh", 0); // Should throw GradeTooHighException
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception caught while creating InvalidHigh: " << e.what() << std::endl;
+    }
+
+    try
+    {
+        Bureaucrat invalidLow("InvalidLow", 151); // Should throw GradeTooLowException
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception caught while creating InvalidLow: " << e.what() << std::endl;
+    }
+
+    return 0;
 }
