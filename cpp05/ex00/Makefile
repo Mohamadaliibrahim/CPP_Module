@@ -1,4 +1,4 @@
-NAME = ./aout
+NAME = a.out
 
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
